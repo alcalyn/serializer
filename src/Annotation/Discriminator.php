@@ -1,12 +1,13 @@
 <?php
+
 /*
- * Copyright 2011 Johannes M. Schmitt <schmittjoh@gmail.com>
+ * Copyright 2013 Johannes M. Schmitt <schmittjoh@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -15,14 +16,23 @@
  * limitations under the License.
  */
 
-use Doctrine\Common\Annotations\AnnotationRegistry;
+namespace JMS\Serializer\Annotation;
 
-call_user_func(function() {
-    if ( ! is_file($autoloadFile = __DIR__.'/../vendor/autoload.php')) {
-        throw new \RuntimeException('Did not find vendor/autoload.php. Did you run "composer install --dev"?');
-    }
+/**
+ * @Annotation
+ * @Target("CLASS")
+ */
+class Discriminator
+{
+    /** @var array<string> */
+    public $map;
 
-    $loader = require $autoloadFile;
+    /** @var string */
+    public $field = 'type';
 
-    AnnotationRegistry::registerLoader('class_exists');
-});
+    /** @var boolean */
+    public $disabled = false;
+
+    /** @var array<string> */
+    public $groups = array();
+}

@@ -1,12 +1,13 @@
 <?php
+
 /*
- * Copyright 2011 Johannes M. Schmitt <schmittjoh@gmail.com>
+ * Copyright 2013 Johannes M. Schmitt <schmittjoh@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -15,14 +16,19 @@
  * limitations under the License.
  */
 
-use Doctrine\Common\Annotations\AnnotationRegistry;
+namespace JMS\Serializer\ContextFactory;
 
-call_user_func(function() {
-    if ( ! is_file($autoloadFile = __DIR__.'/../vendor/autoload.php')) {
-        throw new \RuntimeException('Did not find vendor/autoload.php. Did you run "composer install --dev"?');
+/**
+ * Serialization Context Factory using a callable.
+ */
+class CallableSerializationContextFactory extends CallableContextFactory implements
+    SerializationContextFactoryInterface
+{
+    /**
+     * {@InheritDoc}
+     */
+    public function createSerializationContext()
+    {
+        return $this->createContext();
     }
-
-    $loader = require $autoloadFile;
-
-    AnnotationRegistry::registerLoader('class_exists');
-});
+}
